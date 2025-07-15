@@ -1,3 +1,8 @@
+"""
+image_detection.py
+------------------
+Runs YOLOv8 object detection on all images in the data lake and stores results in the raw.image_detections table in PostgreSQL. Handles table creation and logs all actions.
+"""
 import os
 import glob
 from ultralytics import YOLO
@@ -76,7 +81,9 @@ def detect_and_store(engine):
     logger.info("Image detection complete and results stored.")
 
 if __name__ == "__main__":
-    # Entry point: run YOLOv8 detection and store results in PostgreSQL
-    engine = get_engine()
-    create_table(engine)
-    detect_and_store(engine) 
+    try:
+        engine = get_engine()
+        create_table(engine)
+        detect_and_store(engine)
+    except Exception as e:
+        logger.error(f"Uncaught exception in main: {e}") 

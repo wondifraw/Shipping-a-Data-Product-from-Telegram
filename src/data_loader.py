@@ -1,3 +1,8 @@
+"""
+data_loader.py
+--------------
+Loads raw Telegram message JSON files from the data lake into the raw.telegram_messages table in PostgreSQL. Handles table creation, flexible field mapping, and logs all actions.
+"""
 import json
 import os
 import glob
@@ -107,6 +112,9 @@ class DataLoader:
             self.load_json_to_postgres(json_file)
 
 if __name__ == "__main__":
-    # Entry point: load all raw Telegram messages into PostgreSQL
-    loader = DataLoader()
-    loader.load_all_json_files()
+    try:
+        # Entry point: load all raw Telegram messages into PostgreSQL
+        loader = DataLoader()
+        loader.load_all_json_files()
+    except Exception as e:
+        logger.error(f"Uncaught exception in main: {e}")

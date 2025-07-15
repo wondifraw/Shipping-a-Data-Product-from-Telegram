@@ -1,7 +1,15 @@
+"""
+config.py
+---------
+Loads environment variables and configuration settings for the Telegram scraper, database, and API. Provides constants for use throughout the project.
+"""
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+try:
+    load_dotenv()
+except Exception as e:
+    print(f"Error loading .env file: {e}")
 
 # Telegram API configuration
 TELEGRAM_API_ID = int(os.getenv('TELEGRAM_API_ID'))

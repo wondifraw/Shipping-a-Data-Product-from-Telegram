@@ -1,3 +1,8 @@
+"""
+telegram_scraper.py
+-------------------
+Scrapes messages and media from Telegram channels using Telethon, validates and saves them as JSON files in a structured data lake. Handles rate limits, errors, and logs all actions.
+"""
 import asyncio
 import json
 import os
@@ -198,4 +203,7 @@ async def main():
     await scraper.client.disconnect()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except Exception as e:
+        logger.error(f"Uncaught exception in main: {e}")
