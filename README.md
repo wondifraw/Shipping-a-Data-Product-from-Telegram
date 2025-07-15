@@ -189,8 +189,6 @@ pytest
 - Inline comments exist but are sparse in some scripts (e.g., `telegram_scraper.py`).
 - Contributions to improve code documentation and add explanatory comments are welcome!
 
-## Example Output / Screenshots
-- _Add screenshots or sample output here to illustrate expected results._
 
 ## Contributing
 - Add new Telegram channels in `src/config.py` under `TELEGRAM_CHANNELS`.
