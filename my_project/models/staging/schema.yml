@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: stg_telegram_messages
+    description: "Staging table for raw Telegram messages scraped from channels. Cleans and structures the raw JSON data."
+    columns:
+      - name: message_id
+        description: "Unique identifier for each Telegram message."
+      - name: channel_name
+        description: "Name of the Telegram channel."
+      - name: message_text
+        description: "Text content of the message."
+      - name: message_date
+        description: "Date and time when the message was posted."
+      - name: has_media
+        description: "Indicates if the message contains media."
+      - name: media_type
+        description: "Type of media attached to the message (photo, document, etc.)."
+      - name: scraped_at
+        description: "Timestamp when the message was scraped."
+      - name: raw_data
+        description: "Raw metadata and statistics for the message."
+      - name: media_path
+        description: "File path to the downloaded media, if any."
+
+  - name: stg_image_detections
+    description: "Staging table for YOLOv8 image detection results. Contains object detection metadata for each image."
+    columns:
+      - name: image_id
+        description: "Unique identifier for each image."
+      - name: message_id
+        description: "ID of the Telegram message associated with the image."
+      - name: detected_objects
+        description: "List of objects detected in the image."
+      - name: detection_confidence
+        description: "Confidence score for each detected object."
+      - name: detection_time
+        description: "Timestamp when detection was performed." 
