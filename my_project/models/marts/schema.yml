@@ -15,3 +15,21 @@ models:
         tests:
           - unique
           - not_null 
+  - name: fct_image_detections
+    description: "Fact table for YOLOv8 image detections linked to messages"
+    columns:
+      - name: message_id
+        tests:
+          - not_null
+      - name: detected_object_class
+        tests:
+          - not_null
+      - name: confidence_score
+        tests:
+          - not_null
+      - name: channel
+        tests:
+          - not_null
+      - name: message_date
+        tests:
+          - not_null 
