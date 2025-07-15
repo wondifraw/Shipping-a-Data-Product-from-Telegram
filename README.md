@@ -113,6 +113,21 @@ pytest
 - Telegram channels to scrape are listed in `src/config.py` under `TELEGRAM_CHANNELS`.
 - dbt connection is configured in `my_project/profiles.yml` (see your database credentials in `.env`).
 
+## Environment Variables (.env)
+- All sensitive credentials are managed via a `.env` file, which is excluded from version control for security.
+- **Example:**
+  ```env
+  TELEGRAM_API_ID=your_telegram_api_id  # Replace with your Telegram API ID
+  TELEGRAM_API_HASH=your_telegram_api_hash  # Replace with your Telegram API Hash
+  TELEGRAM_PHONE=+1234567890  # Your Telegram phone number
+  POSTGRES_HOST=localhost
+  POSTGRES_PORT=5432
+  POSTGRES_DB=telegram_db
+  POSTGRES_USER=postgres
+  POSTGRES_PASSWORD=your_secure_password
+  ```
+- **Important:** Never commit your real credentials. Use placeholder values and update `.env.example` accordingly.
+
 ## Data Architecture
 - **Data Lake:** Raw, partitioned JSON files in `data/raw/telegram_messages/YYYY-MM-DD/channel_name.json` and media in `data/raw/media/`.
 - **Database:** PostgreSQL for structured storage and analytics.
@@ -125,11 +140,57 @@ pytest
 - **Marts:** `my_project/models/marts/` (e.g., `fct_messages.sql`, `dim_channels.sql`, `dim_dates.sql`, `fct_image_detections.sql`)
 - **Tests:** `my_project/tests/` (e.g., `no_empty_messages.sql`)
 
+## Logging
+- All scripts use `loguru` for structured logging with timestamps, log levels, and output to both console and `logs/` directory.
+- Log files are rotated and stored in `logs/telegram_scraper.log` and similar files for other scripts.
+- Adjust verbosity and log format in the source code as needed.
+
 ## Troubleshooting
-- **Database connection errors:** Check your `.env` and `my_project/profiles.yml` for correct credentials.
-- **Missing dependencies:** Run `pip install -r requirements.txt` and `pip install ultralytics` for YOLO.
-- **dbt errors:** Run `dbt debug` for environment checks.
-- **Image detection issues:** Ensure images are present in `data/raw/media/` and filenames start with the message ID.
+- **Docker fails to start:**
+  - Check Docker Desktop is running.
+  - Ensure ports 5432 (Postgres) and 8000 (if used) are free.
+  - Run `docker-compose down -v` to reset volumes if needed.
+- **Database connection errors:**
+  - Verify `.env` and `my_project/profiles.yml` for correct credentials.
+  - Ensure Postgres is running and accessible.
+- **Missing dependencies:**
+  - Run `pip install -r requirements.txt` and `pip install ultralytics` for YOLO.
+- **dbt errors:**
+  - Run `dbt debug` for environment checks.
+- **Image detection issues:**
+  - Ensure images are present in `data/raw/media/` and filenames start with the message ID.
+- **Other issues:**
+  - Check log files in `logs/` for detailed error messages.
+
+## Data Lineage & dbt DAG
+- Generate interactive data lineage and model documentation with dbt:
+  ```sh
+  cd my_project
+  dbt docs generate
+  dbt docs serve
+  ```
+- This provides a visual DAG (Directed Acyclic Graph) of your data pipeline and model dependencies.
+
+## Data Quality & File Naming
+- All raw data files follow the naming convention: `data/raw/telegram_messages/YYYY-MM-DD/channel_name.json`.
+- The pipeline validates file structure and logs warnings for malformed or empty messages.
+- Add additional validation as needed for your use case.
+
+## dbt Testing
+- Includes basic tests (e.g., `not_null`) and encourages adding custom tests for business logic (e.g., `message length > 0`).
+- Example custom test:
+  ```sql
+  -- tests/no_empty_messages.sql
+  SELECT * FROM {{ ref('stg_telegram_messages') }} WHERE LENGTH(message_text) = 0
+  ```
+- Add more tests in `my_project/tests/` as your business logic evolves.
+
+## Code Documentation & Comments
+- Inline comments exist but are sparse in some scripts (e.g., `telegram_scraper.py`).
+- Contributions to improve code documentation and add explanatory comments are welcome!
+
+## Example Output / Screenshots
+- _Add screenshots or sample output here to illustrate expected results._
 
 ## Contributing
 - Add new Telegram channels in `src/config.py` under `TELEGRAM_CHANNELS`.
@@ -137,5 +198,3 @@ pytest
 - Use pre-commit hooks for linting and formatting (`pre-commit install`).
 - Follow best practices for Python and dbt development.
 
-## License
-MIT 
