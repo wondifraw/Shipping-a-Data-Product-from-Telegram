@@ -1,65 +1,37 @@
-.env
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
-*.py[cod]
-*$py.class
-# C extensions
-*.so
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-# Installer logs
-debug.log
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-# Jupyter Notebook
-.ipynb_checkpoints
-# pyenv
-.python-version
-# pipenv
-Pipfile.lock
-# pytest
-.cache
-# mypy
-.mypy_cache/
-.dmypy.json
-# Pyre type checker
-.pyre/
-# dotenv
-.env.* 
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.sqlite3
+
+# Environments
 .env
-anon.session
-anon.session-journal
-data/
+.env.*
+.venv/
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs
+logs/
 *.log
-log/
+
+# DBT artifacts
+my_project/target/
+my_project/dbt_modules/
+
+# Docker
+*.pid
+
+# System
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.sample
 requirements-dev.txt
-session.session
+data/
