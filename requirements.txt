@@ -1,3 +1,9 @@
+# Core dependencies
+sqlalchemy
+psycopg2-binary
 python-dotenv
-# Add other dependencies as needed 
-telethon 
+requests
+# Add for logging and validation
+structlog
+loguru
+jsonschema 
