@@ -117,13 +117,13 @@ pytest
 - All sensitive credentials are managed via a `.env` file, which is excluded from version control for security.
 - **Example:**
   ```env
-  TELEGRAM_API_ID=my_telegram_api_id  
-  TELEGRAM_API_HASH=my_telegram_api_hash  
-  TELEGRAM_PHONE= my Telegram phone number
+  TELEGRAM_API_ID=your_telegram_api_id  # Replace with your Telegram API ID
+  TELEGRAM_API_HASH=your_telegram_api_hash  # Replace with your Telegram API Hash
+  TELEGRAM_PHONE=+1234567890  # Your Telegram phone number
   POSTGRES_HOST=localhost
   POSTGRES_PORT=5432
   POSTGRES_DB=telegram_db
-  POSTGRES_USER=my user name
+  POSTGRES_USER=postgres
   POSTGRES_PASSWORD=my_secure_password
   ```
 - **Important:** Never commit your real credentials. Use placeholder values and update `.env.example` accordingly.
