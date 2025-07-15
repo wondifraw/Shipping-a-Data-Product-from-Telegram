@@ -1,0 +1,11 @@
+my_project:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost  #  DB host
+      user: POSTGRES_USER  # DB user
+      password: POSTGRES_PASSWORD  #  DB password
+      dbname: POSTGRES_DB  #  DB name
+      schema: raw  #  DB schema
+      port: 5432 
