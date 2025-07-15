@@ -1,15 +1,20 @@
-# Use official Python image
-FROM python:3.10-slim
+# syntax=docker/dockerfile:1
 
-# Set work directory
+# --- Builder stage ---
+FROM python:3.10-slim AS builder
 WORKDIR /app
-
-# Install dependencies
 COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --user --no-cache-dir -r requirements.txt
 
-# Copy project files
+# --- Final stage ---
+FROM python:3.10-slim
+WORKDIR /app
+COPY --from=builder /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH
 COPY . .
 
-# Default command (update as needed)
-CMD ["python", "main.py"] 
+# Set environment variables for production
+ENV PYTHONUNBUFFERED=1
+
+# Default command
+CMD ["python", "src/telegram_scraper.py"] 
