@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: dim_channels
+    description: "Dimension table for Telegram channels"
+    columns:
+      - name: channel_id
+        tests:
+          - unique
+          - not_null
+  - name: fct_messages
+    description: "Fact table for Telegram messages"
+    columns:
+      - name: message_id
+        tests:
+          - unique
+          - not_null 
