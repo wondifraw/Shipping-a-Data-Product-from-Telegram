@@ -1,0 +1,3 @@
+python-dotenv
+# Add other dependencies as needed 
+telethon 
