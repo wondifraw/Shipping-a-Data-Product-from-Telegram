@@ -60,3 +60,6 @@ anon.session
 anon.session-journal
 data/
 *.log
+log/
+requirements-dev.txt
+session.session
